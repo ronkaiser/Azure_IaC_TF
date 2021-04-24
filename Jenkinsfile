@@ -23,7 +23,7 @@ pipeline {
         }
         stage('TerraForm Deploy Infrastructure') {
           steps {
-            sh 'echo terraform apply'
+            sh 'terraform apply'
           }
         }
     }
