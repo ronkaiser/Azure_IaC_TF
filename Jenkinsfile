@@ -18,7 +18,7 @@ pipeline {
         }
         stage('TerraForm initialization') {
           steps {
-            sh 'echo terraform init'
+            sh 'terraform init'
           }
         }
         stage('TerraForm Deploy Infrastructure') {
