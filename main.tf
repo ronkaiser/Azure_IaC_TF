@@ -12,13 +12,6 @@ provider "azurerm" {
   features {}
 }
 
-provider "azuread" {
-  # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
-  version = "=1.1.0"
-
-  tenant_id = "9a53eaff-13c8-4a09-8ad6-4fa94ed5d56f"
-}
-
 # Create Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
