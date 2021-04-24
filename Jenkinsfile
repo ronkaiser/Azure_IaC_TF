@@ -36,7 +36,7 @@ pipeline {
             //echo to console
             echo ("Your password to Azure servers: ${admin_password}")
             echo ("Your username to Azure Servers: ${admin_username}")
-            sh 'echo "terraform plan"'
+            sh "terraform plan -var 'admin_password=${admin_password}' -var 'admin_username=${admin_username}'"
             }
           }
         }
