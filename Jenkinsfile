@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'slave'}
+    agent any
 
     environment {
         AZURE_SUBSCRIPTION_ID='57f61366-b99f-4f48-8086-e8ad016e0a38'
@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Example') {
+        stage('Azure Login') {
             steps {
                    withCredentials([usernamePassword(credentialsId: 'myAzureCredential', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
                             sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
@@ -15,6 +15,16 @@ pipeline {
                             sh 'az resource list'
                         }
             }
+        }
+        stage('TerraForm initialization') {
+          steps {
+            sh 'echo terraform init'
+          }
+        }
+        stage('TerraForm Deploy Infrastructure') {
+          steps {
+            sh 'echo terraform apply'
+          }
         }
     }
 }
