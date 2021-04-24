@@ -30,14 +30,12 @@ pipeline {
                 string(defaultValue: 'None', description: 'username', name: 'Username'),
               ])
             // Save variables
-            var.admin_password = userInput.Password?:''
-            var.admin_username = userInput.Username?:''
+            admin_password = userInput.Password?:''
+            admin_username = userInput.Username?:''
 
             //echo to console
-            echo ("Your password to Azure servers: "+userInput['Password'])
-            echo ("Your username to Azure Servers: "+userInput['Username'])
-            echo ${env.var.admin_password}
-            echo ${env.var.admin_password}
+            echo ("Your password to Azure servers: ${admin_password}")
+            echo ("Your username to Azure Servers: ${admin_username}")
             sh 'echo terraform apply'
             }
           }
