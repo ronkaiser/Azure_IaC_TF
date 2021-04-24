@@ -23,6 +23,15 @@ pipeline {
         }
         stage('TerraForm Deploy Infrastructure') {
           steps {
+            script {
+            def userInput = input(
+              id: 'userInput', message: 'Enter username and password for application servers:',
+              parameters: [
+              [$var.admin_password: 'TextParameterDefinition' defaultValue: 'None', description: 'password', name: 'Password'],
+              [$var.admin_username: 'TextParameterDefinition' defaultValue: 'None', description: 'username', name: 'Username'])
+            echo ("Your password to Azure servers: "+userInput['Password'])
+            echo ("Your username to Azure Servers: "+userInput['Username'])
+            }
             sh 'terraform apply'
           }
         }
