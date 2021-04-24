@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'slave'}
 
     environment {
         AZURE_SUBSCRIPTION_ID='57f61366-b99f-4f48-8086-e8ad016e0a38'
