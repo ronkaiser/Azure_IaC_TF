@@ -36,7 +36,9 @@ pipeline {
             //echo to console
             echo ("Your password to Azure servers: "+userInput['Password'])
             echo ("Your username to Azure Servers: "+userInput['Username'])
-            sh 'terraform apply'
+            echo ${env.var.admin_password}
+            echo ${env.var.admin_password}
+            sh 'echo terraform apply'
             }
           }
         }
