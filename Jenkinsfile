@@ -27,12 +27,18 @@ pipeline {
             def userInput = input(
               id: 'userInput', message: 'Enter username and password for application servers:',
               parameters: [
-              [$var.admin_password: 'TextParameterDefinition' defaultValue: 'None', description: 'password', name: 'Password'],
-              [$var.admin_username: 'TextParameterDefinition' defaultValue: 'None', description: 'username', name: 'Username'])
+                string(defaultValue: 'None', description: 'password', name: 'Password'),
+                string(defaultValue: 'None', description: 'username', name: 'Username'),
+              ])
+            // Save variables
+            var.admin_password = userInput.Password?:''
+            var.admin_username = userInput.Username?:''
+
+            //echo to console
             echo ("Your password to Azure servers: "+userInput['Password'])
             echo ("Your username to Azure Servers: "+userInput['Username'])
-            }
             sh 'terraform apply'
+            }
           }
         }
     }
