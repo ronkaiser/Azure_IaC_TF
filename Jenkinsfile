@@ -7,34 +7,38 @@ pipeline {
     }
 
     stages {
-        stage('TerraForm initialization') {
-          steps {
-            sh 'terraform init'
-          }
-        }
         stage('Azure Login') {
             steps {
                    withCredentials([usernamePassword(credentialsId: 'myAzureCredential', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
                             sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
                             sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
                         }
-                   script {
-                   def userInput = input(
-                     id: 'userInput', message: 'Enter username and password for application servers:',
-                     parameters: [
-                       string(defaultValue: 'None', description: 'password', name: 'Password'),
-                       string(defaultValue: 'None', description: 'username', name: 'Username'),
-                     ])
-                   // Save variables
-                   admin_password = userInput.Password?:''
-                   admin_username = userInput.Username?:''
-
-                   //echo to console
-                   echo ("Your password to Azure servers: ${admin_password}")
-                   echo ("Your username to Azure Servers: ${admin_username}")
-                   sh "terraform plan -input=false -var 'admin_password=${admin_password}' -var 'admin_username=${admin_username}'"
-                   }
             }
         }
+        stage('TerraForm initialization') {
+          steps {
+            sh 'terraform init'
+          }
+        }
+        stage('TerraForm Deploy Infrastructure') {
+          steps {
+            script {
+            def userInput = input(
+              id: 'userInput', message: 'Enter username and password for application servers:',
+              parameters: [
+                string(defaultValue: 'None', description: 'password', name: 'Password'),
+                string(defaultValue: 'None', description: 'username', name: 'Username'),
+              ])
+            // Save variables
+            admin_password = userInput.Password?:''
+            admin_username = userInput.Username?:''
+
+            //echo to console
+            echo ("Your password to Azure servers: ${admin_password}")
+            echo ("Your username to Azure Servers: ${admin_username}")
+            sh "terraform plan -input=false -var 'admin_password=${admin_password}' -var 'admin_username=${admin_username}'"
+            }
+          }
+        }
     }
- }
+}
