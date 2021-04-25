@@ -9,6 +9,14 @@ pipeline {
     }
 
     stages {
+        stage('Azure Login') {
+            steps {
+                   withCredentials([usernamePassword(credentialsId: 'myAzureCredential', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+                            sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                            sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
+                        }
+            }
+        }
         stage('TerraForm initialization') {
           steps {
             sh 'terraform init'
