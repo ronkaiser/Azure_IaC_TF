@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        terraform 'terraform'
+    }
     environment {
         AZURE_SUBSCRIPTION_ID='57f61366-b99f-4f48-8086-e8ad016e0a38'
         AZURE_TENANT_ID='9a53eaff-13c8-4a09-8ad6-4fa94ed5d56f'
