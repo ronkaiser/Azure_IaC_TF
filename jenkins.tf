@@ -176,3 +176,18 @@ resource "azurerm_virtual_machine" "slave" {
     disable_password_authentication = false
   }
 }
+
+resource "azurerm_virtual_machine_extension" "jenkins_terraform" {
+  name = "jenkins_extension"
+  virtual_machine_id = azurerm_virtual_machine.jenkins.id
+  publisher = "Microsoft.Azure.Extensions"
+  type = "CustomScriptForLinux"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/xenonstack/terraform-jenkins-azure/master/jenkins-init.sh"],
+        "commandToExecute": "sh jenkins-init.sh"
+       }
+SETTINGS
+}
