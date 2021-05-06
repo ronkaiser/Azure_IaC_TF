@@ -201,8 +201,8 @@ resource "azurerm_virtual_machine_extension" "tfansible_terraform" {
 
   settings = <<SETTINGS
     {
-        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/jenkins-init.sh"],
-        "commandToExecute": "sh jenkins-init.sh"
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/tf_ansible-init.sh"],
+        "commandToExecute": "sh tf_ansible-init.sh"
     }
 SETTINGS
 }
