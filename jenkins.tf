@@ -192,8 +192,8 @@ resource "azurerm_virtual_machine_extension" "jenkins_terraform" {
 SETTINGS
 }
 
-resource "azurerm_virtual_machine_extension" "tfansible_terraform" {
-  name = "tfansible_extension"
+resource "azurerm_virtual_machine_extension" "slave_terraform" {
+  name = "slave_extension"
   virtual_machine_id = azurerm_virtual_machine.slave.id
   publisher = "Microsoft.Azure.Extensions"
   type = "CustomScript"
@@ -201,8 +201,8 @@ resource "azurerm_virtual_machine_extension" "tfansible_terraform" {
 
   settings = <<SETTINGS
     {
-        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/tf_ansible-init.sh"],
-        "commandToExecute": "sh tf_ansible-init.sh"
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/slave-init.sh"],
+        "commandToExecute": "sh slave-init.sh"
     }
 SETTINGS
 }
