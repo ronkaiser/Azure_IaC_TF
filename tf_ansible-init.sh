@@ -11,3 +11,9 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 
 # update repository and install Terraform
 sudo apt-get update && sudo apt-get install terraform -y
+
+# ansible installation
+sudo apt update
+sudo apt install software-properties-common -y
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y

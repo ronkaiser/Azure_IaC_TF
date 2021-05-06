@@ -188,6 +188,21 @@ resource "azurerm_virtual_machine_extension" "jenkins_terraform" {
     {
         "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/jenkins-init.sh"],
         "commandToExecute": "sh jenkins-init.sh"
-       }
+    }
+SETTINGS
+}
+
+resource "azurerm_virtual_machine_extension" "tfansible_terraform" {
+  name = "tfansible_extension"
+  virtual_machine_id = azurerm_virtual_machine.slave.id
+  publisher = "Microsoft.Azure.Extensions"
+  type = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/jenkins-init.sh"],
+        "commandToExecute": "sh jenkins-init.sh"
+    }
 SETTINGS
 }
