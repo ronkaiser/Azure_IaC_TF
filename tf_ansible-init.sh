@@ -12,6 +12,9 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 # update repository and install Terraform
 sudo apt-get update && sudo apt-get install terraform -y
 
+# Java Installation
+sudo apt install -y openjdk-11-jdk
+
 # ansible installation
 sudo apt update
 sudo apt install software-properties-common -y
