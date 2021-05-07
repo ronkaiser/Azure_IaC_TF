@@ -347,7 +347,20 @@ resource "azurerm_virtual_machine" "vm" {
   }
 }
 
+resource "azurerm_virtual_machine_extension" "app1_terraform" {
+  name = "slave_extension"
+  virtual_machine_id = azurerm_virtual_machine.vm.id
+  publisher = "Microsoft.Azure.Extensions"
+  type = "CustomScript"
+  type_handler_version = "2.0"
 
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/apps-init.sh"],
+        "commandToExecute": "sh apps-init.sh"
+    }
+SETTINGS
+}
 
 
 
@@ -386,7 +399,20 @@ resource "azurerm_virtual_machine" "vm2" {
   }
 }
 
+resource "azurerm_virtual_machine_extension" "app2_terraform" {
+  name = "slave_extension"
+  virtual_machine_id = azurerm_virtual_machine.vm2.id
+  publisher = "Microsoft.Azure.Extensions"
+  type = "CustomScript"
+  type_handler_version = "2.0"
 
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/apps-init.sh"],
+        "commandToExecute": "sh apps-init.sh"
+    }
+SETTINGS
+}
 
 
 # Create a Linux virtual machine 3
@@ -422,6 +448,21 @@ resource "azurerm_virtual_machine" "vm3" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
+}
+
+resource "azurerm_virtual_machine_extension" "app3_terraform" {
+  name = "slave_extension"
+  virtual_machine_id = azurerm_virtual_machine.vm3.id
+  publisher = "Microsoft.Azure.Extensions"
+  type = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/ronkaiser/Azure_IaC_TF/master/apps-init.sh"],
+        "commandToExecute": "sh apps-init.sh"
+    }
+SETTINGS
 }
 
 #Get data from vnet

@@ -1,6 +1,6 @@
 #Create Postgresql Server
 resource "azurerm_postgresql_server" "postgres" {
-  name                = "postgresql-ron"
+  name                = "postgresql"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -12,7 +12,7 @@ resource "azurerm_postgresql_server" "postgres" {
   auto_grow_enabled            = true
 
   administrator_login          = "postgres"
-  administrator_login_password = var.admin_password
+  administrator_login_password = "p@ssw0rd42"
   version                      = "11"
   ssl_enforcement_enabled      = false
 }
